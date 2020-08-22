@@ -1,4 +1,4 @@
-import { useState } from './usestate'
+import { useState } from './index'
 import { div, ul, li, key, text } from 'longwood'
 import { JSDOM } from 'jsdom'
 
