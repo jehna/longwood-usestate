@@ -36,7 +36,7 @@ const withProxy = <T>(changeable: ChangeableValue<T>): State<T> =>
   new Proxy(changeable, {
     get: (target, prop, receiver) => {
       if (prop in target) return Reflect.get(target, prop, receiver)
-      const currValue = target.getCurrentValue()
+      const currValue = target.valueOf()
       const comparable =
         currValue instanceof Object
           ? currValue
@@ -46,17 +46,14 @@ const withProxy = <T>(changeable: ChangeableValue<T>): State<T> =>
         if (typeof comparable[prop] === 'function')
           return (...args: any[]) =>
             withProxy({
-              getCurrentValue: () =>
-                comparable[prop].apply(changeable.getCurrentValue(), args),
+              valueOf: () => comparable[prop].apply(changeable.valueOf(), args),
               onChange(listener) {
-                return changeable.onChange(() =>
-                  listener(this.getCurrentValue())
-                )
+                return changeable.onChange(() => listener(this.valueOf()))
               }
             })
         else
           return withProxy({
-            getCurrentValue: () => (changeable.getCurrentValue() as any)[prop],
+            valueOf: () => (changeable.valueOf() as any)[prop],
             onChange(listener) {
               return changeable.onChange((next) => listener(next[prop]))
             }
@@ -69,7 +66,7 @@ export const useState = <T>(initialState: T) => {
   let current = initialState
   const listeners: ((newValue: T) => void)[] = []
   const changeable: ChangeableValue<T> = {
-    getCurrentValue: () => current,
+    valueOf: () => current,
     onChange: (listener) => {
       listeners.push(listener)
       return () => listeners.splice(listeners.indexOf(listener), 1)

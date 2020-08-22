@@ -3,15 +3,15 @@ import { div, ul, li, key, text } from 'longwood'
 import { JSDOM } from 'jsdom'
 
 describe('useState', () => {
-  it('should expose the intiial value with getCurrentValue', () => {
+  it('should expose the intiial value with valueOf', () => {
     const [state] = useState('hello')
-    expect(state.getCurrentValue()).toEqual('hello')
+    expect(state.valueOf()).toEqual('hello')
   })
 
   it('should change the value when setter is called', () => {
     const [state, setState] = useState('hello')
     setState('world')
-    expect(state.getCurrentValue()).toEqual('world')
+    expect(state.valueOf()).toEqual('world')
   })
 
   it('should call onChange listeners when value changes', () => {
@@ -33,20 +33,20 @@ describe('useState', () => {
   it('should allow common methods with numbers', () => {
     const [state] = useState(1000)
     const string = state.toFixed(0)
-    expect(string.getCurrentValue()).toEqual('1000')
+    expect(string.valueOf()).toEqual('1000')
   })
 
   it(`should proxy common methods of state's prototype`, () => {
     const [state] = useState(['hello'])
     const derivedState = state.map((s) => s + ' world')
-    expect(derivedState.getCurrentValue()).toEqual(['hello world'])
+    expect(derivedState.valueOf()).toEqual(['hello world'])
   })
 
   it(`should proxy common properties of state's prototype`, () => {
     const [state, setState] = useState(['hello'])
     const derivedState = state.length
     setState(['hello', 'world'])
-    expect(derivedState.getCurrentValue()).toEqual(2)
+    expect(derivedState.valueOf()).toEqual(2)
   })
 
   it('should listen to changes by proxy props', () => {
@@ -70,21 +70,21 @@ describe('useState', () => {
   it('should chain prixies', () => {
     const [state, setState] = useState([1, 2, 3, 4, 5])
     const derivedState = state.filter((n) => n % 2 === 0).map((n) => n * 2)
-    expect(derivedState.getCurrentValue()).toEqual([4, 8])
+    expect(derivedState.valueOf()).toEqual([4, 8])
     setState([5, 6, 7, 8, 9])
-    expect(derivedState.getCurrentValue()).toEqual([12, 16])
+    expect(derivedState.valueOf()).toEqual([12, 16])
   })
 
   it('should work with plain objects', () => {
     const [state, setState] = useState({ foo: 'bar' })
 
     const prop = state.foo
-    expect(prop.getCurrentValue()).toEqual('bar')
+    expect(prop.valueOf()).toEqual('bar')
 
     const callback = jest.fn()
     prop.onChange(callback)
     setState({ foo: 'change in prop' })
-    expect(prop.getCurrentValue()).toEqual('change in prop')
+    expect(prop.valueOf()).toEqual('change in prop')
     expect(callback).toBeCalledWith('change in prop')
   })
 
@@ -92,15 +92,15 @@ describe('useState', () => {
     const [state, setState] = useState({ nested: { bar: 'baz' } })
 
     const nested = state.nested.bar
-    expect(nested.getCurrentValue()).toEqual('baz')
+    expect(nested.valueOf()).toEqual('baz')
 
     const callback = jest.fn()
     nested.onChange(callback)
     setState({
-      ...state.getCurrentValue(),
+      ...state.valueOf(),
       nested: { bar: 'change in nested' }
     })
-    expect(nested.getCurrentValue()).toEqual('change in nested')
+    expect(nested.valueOf()).toEqual('change in nested')
     expect(callback).toBeCalledWith('change in nested')
   })
 })
@@ -168,7 +168,7 @@ describe('Usage with longwood', () => {
     // Check first todo item
     setTodos(
       todos
-        .getCurrentValue()
+        .valueOf()
         .map((todo, i) => (i === 0 ? { ...todo, checked: true } : todo))
     )
 
