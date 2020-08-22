@@ -1,8 +1,9 @@
 {
   "name": "longwood-usestate",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "build/index.js",
   "license": "MIT",
+  "homepage": "https://github.com/jehna/longwood-usestate",
   "scripts": {
     "test": "jest",
     "build": "yarn build:umd && yarn build:esm",
