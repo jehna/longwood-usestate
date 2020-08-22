@@ -30,6 +30,12 @@ describe('useState', () => {
     expect(callback).not.toBeCalled()
   })
 
+  it('should allow common methods with numbers', () => {
+    const [state] = useState(1000)
+    const string = state.toFixed(0)
+    expect(string.getCurrentValue()).toEqual('1000')
+  })
+
   it(`should proxy common methods of state's prototype`, () => {
     const [state] = useState(['hello'])
     const derivedState = state.map((s) => s + ' world')

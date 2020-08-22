@@ -18,10 +18,16 @@ type ObjectProxiedValues<T> = {
   [Key in keyof T]: WrapChangeable<T[Key]>
 }
 
+type CommonProxiedValues<T> = {
+  [Key in Exclude<keyof T, 'constructor' | 'toString'>]: WrapChangeable<T[Key]>
+}
+
 type ProxiedValues<T> = T extends Array<infer ItemType>
   ? ArrayProxiedValues<ItemType>
   : T extends { [key: string]: any }
   ? ObjectProxiedValues<T>
+  : T extends string | number
+  ? CommonProxiedValues<T>
   : {}
 
 type State<T> = ChangeableValue<T> & ProxiedValues<T>
@@ -30,13 +36,18 @@ const withProxy = <T>(changeable: ChangeableValue<T>): State<T> =>
   new Proxy(changeable, {
     get: (target, prop, receiver) => {
       if (prop in target) return Reflect.get(target, prop, receiver)
-      const currValue: any = target.getCurrentValue()
-      if (prop in currValue) {
-        if (typeof currValue[prop] === 'function')
+      const currValue = target.getCurrentValue()
+      const comparable =
+        currValue instanceof Object
+          ? currValue
+          : Object.getPrototypeOf(currValue)
+
+      if (prop in comparable) {
+        if (typeof comparable[prop] === 'function')
           return (...args: any[]) =>
             withProxy({
               getCurrentValue: () =>
-                currValue[prop].apply(changeable.getCurrentValue(), args),
+                comparable[prop].apply(changeable.getCurrentValue(), args),
               onChange(listener) {
                 return changeable.onChange(() =>
                   listener(this.getCurrentValue())
