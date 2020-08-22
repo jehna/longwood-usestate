@@ -1,0 +1,31 @@
+{
+  "name": "longwood-usestate",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "build": "yarn build:umd && yarn build:esm",
+    "build:umd": "tsc",
+    "build:esm": "tsc --module es6 --outDir build/es",
+    "release": "./do_release.sh"
+  },
+  "module": "build/es/index.js",
+  "prettier": {
+    "semi": false,
+    "trailingComma": "none",
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "@types/jsdom": "^16.2.3",
+    "jest": "^26.4.1",
+    "jsdom": "^16.4.0",
+    "ts-jest": "^26.2.0",
+    "typescript": "^4.0.2",
+    "longwood": "file:../longwood"
+  },
+  "peerDependencies": {
+    "longwood": "^0.1.0"
+  }
+}
