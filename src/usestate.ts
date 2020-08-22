@@ -5,7 +5,14 @@ type WrapChangeable<T> = T extends (...args: infer A) => infer R
   : State<T>
 
 type ArrayProxiedValues<T> = {
-  [Key in keyof ReadonlyArray<T>]: WrapChangeable<ReadonlyArray<T>[Key]>
+  [Key in Exclude<keyof ReadonlyArray<T>, 'map'>]: WrapChangeable<
+    ReadonlyArray<T>[Key]
+  >
+} & {
+  map<U>(
+    callbackfn: (value: T, index: number, array: readonly T[]) => U,
+    thisArg?: any
+  ): State<U[]>
 }
 type ObjectProxiedValues<T> = {
   [Key in keyof T]: WrapChangeable<T[Key]>

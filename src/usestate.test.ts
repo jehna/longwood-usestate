@@ -128,4 +128,44 @@ describe('Usage with longwood', () => {
     setState({ className: 'bar' })
     expect(element.innerHTML).toEqual('<div class="bar"></div>')
   })
+
+  it('should allow array-based list items', () => {
+    const [todos] = useState(['Do this', 'Do that'])
+    const render = ul({
+      children: [todos.map((todo) => key(todo, li({ children: [text(todo)] })))]
+    })
+    const element = createRenderTarget()
+    render(element)
+    expect(element.innerHTML).toEqual(
+      '<ul><li>Do this</li><li>Do that</li></ul>'
+    )
+  })
+
+  it('should allow changing array-based state', () => {
+    type Todo = { label: string; checked: boolean }
+    const [todos, setTodos] = useState<Todo[]>([
+      { label: 'Do this', checked: false },
+      { label: 'Do that', checked: false }
+    ])
+
+    const undone = todos.filter((todo) => !todo.checked)
+    const render = ul({
+      children: [
+        undone.map((todo) =>
+          key(todo.label, li({ children: [text(todo.label)] }))
+        )
+      ]
+    })
+    const element = createRenderTarget()
+    render(element)
+
+    // Check first todo item
+    setTodos(
+      todos
+        .getCurrentValue()
+        .map((todo, i) => (i === 0 ? { ...todo, checked: true } : todo))
+    )
+
+    expect(element.innerHTML).toEqual('<ul><li>Do that</li></ul>')
+  })
 })
