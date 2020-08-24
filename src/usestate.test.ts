@@ -155,15 +155,15 @@ describe('Usage with longwood', () => {
     ])
 
     const undone = todos.filter((todo) => !todo.checked)
-    const render = ul({
-      children: [
-        undone.map((todo) =>
-          key(todo.label, li({ children: [text(todo.label)] }))
-        )
-      ]
-    })
+    const render = ul(
+      undone.map((todo) => key(todo.label, li(text(todo.label))))
+    )
     const element = createRenderTarget()
     render(element)
+
+    expect(element.innerHTML).toEqual(
+      '<ul><li>Do this</li><li>Do that</li></ul>'
+    )
 
     // Check first todo item
     setTodos(

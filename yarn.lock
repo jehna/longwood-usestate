@@ -2411,10 +2411,10 @@ lodash@^4.17.19:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
-longwood@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/longwood/-/longwood-0.2.0.tgz#cb5f02b378d451b95963267c1b829a171f118d84"
-  integrity sha512-p64erI95EBL7VZMMqs1R8/vXiD83gs7EShyEiS3kYnP662DtVZxhjpuFJVyaxjI41MvyYJXHy2jF8BhqoQqY1Q==
+longwood@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/longwood/-/longwood-0.3.0.tgz#1a50e27932dd6f7f09d0679ed36797949e0ee56b"
+  integrity sha512-fMyu5aKR+bNIb8DbKjVEU6nXoCf1ybm/LwesMRR55gReEB4lDIaaGhRWBFnwSq9LxqGcSjlYa5eTA/bpHR9iMg==
 
 make-dir@^3.0.0:
   version "3.1.0"
