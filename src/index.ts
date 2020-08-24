@@ -30,7 +30,7 @@ type ProxiedValues<T> = T extends Array<infer ItemType>
   ? CommonProxiedValues<T>
   : {}
 
-type State<T> = ChangeableValue<T> & ProxiedValues<T>
+export type State<T> = ChangeableValue<T> & ProxiedValues<T>
 
 const withProxy = <T>(changeable: ChangeableValue<T>): State<T> =>
   new Proxy(changeable, {
