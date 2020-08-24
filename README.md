@@ -19,16 +19,17 @@ div(
 )
 ```
 
+[▶️ Run in CodeSandbox.io](https://codesandbox.io/s/vibrant-cookies-bz5lt?file=/src/index.ts)
+
 The resulting state is a `ChangeableValue`, so you can pass it as a value to any
 Longwood component prop. Notice using `valueOf` to grab the current value of the
 `ChangeableValue`.
 
-[▶️ Run in CodeSandbox.io](https://codesandbox.io/s/vibrant-cookies-bz5lt?file=/src/index.ts)
 
 ### State splitting
 
 You can split the state to smaller components, just like it was a regular
-Javascript object. You can even call the normal methods of regular objects:
+Javascript object. You can even call any method like you'd normally do:
 
 ```js
 const [state, setState] = useState({ numbers: randomNumbers() })
@@ -46,7 +47,7 @@ div(
 
 [▶️ Run in CodeSandbox.io](https://codesandbox.io/s/icy-dew-kw7cv?file=/src/index.ts)
 
-This seems like magic, because it is! Ket's add some type hints to see how this
+This seems like magic, because it is! Let's add some type hints to see how this
 works:
 
 ```ts
@@ -80,8 +81,8 @@ object that reflects all changes made to the original state.
 ## Example: Todo app
 
 Everyone's favourite example: The Todo App is available so you could have a look
-at how you could use **Longwood useState** a real-life project — at least if
-you're creating a todo app.
+at how you could use `longwood-usestate` a real-life project — that's at least
+if you're creating a todo app.
 
 [▶️ Run in CodeSandbox.io](https://codesandbox.io/s/practical-pond-1doz4?file=/src/TodoApp.ts)
 
