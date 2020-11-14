@@ -24,7 +24,7 @@
     "jsdom": "^16.4.0",
     "longwood": "^0.4.4",
     "ts-jest": "^26.4.4",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.5"
   },
   "peerDependencies": {
     "longwood": "^0.3.0"
