@@ -1,8 +1,38 @@
 # Longwood useState    ![Travis CI build status](https://travis-ci.org/jehna/longwood-usestate.svg?branch=master) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![npm version](https://img.shields.io/npm/v/longwood-usestate.svg?style=flat)](https://www.npmjs.com/package/longwood-usestate) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-> Simple [React context](https://reactjs.org/docs/context.html)-style state management library for [Longwood](https://github.com/jehna/longwood)
+> Simple React useState and [context](https://reactjs.org/docs/context.html)
+> like state management library for
+> [Longwood](https://github.com/jehna/longwood)
 
 ## Example
+
+### createState
+
+You can use the `createState` function to create a `useState` function:
+
+```js
+const app = createRenderTarget()
+const useState = createState(0)
+const render = div(
+  useState((state, setState) =>
+    div(
+      text(`Count: ${state}`),
+      button({
+        id: 'button',
+        onclick: () => setState(state + 1),
+        children: [text('+1')]
+      })
+    )
+  )
+)
+```
+
+The `useState` function exposes `state` and `setState` arguments to the
+callback, which you can use to manage your component-specific state.
+
+[▶️ Run in CodeSandbox.io](https://codesandbox.io/s/priceless-fast-ogeeq)
+
+### createContext
 
 You can use `createContext` function to craete a context object with state:
 
@@ -38,20 +68,18 @@ to import the module directly within your HTML page:
   <body>
     <div id="app"></div>
     <script type="module">
-      import { div } from 'https://cdn.skypack.dev/longwood'
-      import { useState } from 'https://cdn.skypack.dev/longwood-usestate'
+      import { div, button } from 'https://cdn.skypack.dev/longwood'
+      import { createState } from 'https://cdn.skypack.dev/longwood-usestate'
 
-      const { provider, consumer } = createContext(0)
-      const render = provider(
-        div(
-          consumer((state, setState) =>
-            div(
-              text(`Count: ${state}`),
-              button({
-                onclick: () => setState(state + 1),
-                children: [text('+1')]
-              })
-            )
+      const useState = createState(0)
+      const render = div(
+        useState((state, setState) =>
+          div(
+            text(`Count: ${state}`),
+            button({
+              onclick: () => setState(state + 1),
+              children: [text('+1')]
+            })
           )
         )
       )
@@ -82,18 +110,15 @@ Webpack, you can do:
 import { div } from 'longwood'
 import { useState } from 'longwood-usestate'
 
-const { provider, consumer } = createContext(0)
-const render = provider(
-  div(
-    consumer((state, setState) =>
-      div(
-        text(`Count: ${state}`),
-        button({
-          id: 'button',
-          onclick: () => setState(state + 1),
-          children: [text('+1')]
-        })
-      )
+const useState = createState(0)
+const render = div(
+  useState((state, setState) =>
+    div(
+      text(`Count: ${state}`),
+      button({
+        onclick: () => setState(state + 1),
+        children: [text('+1')]
+      })
     )
   )
 )
