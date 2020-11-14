@@ -58,6 +58,12 @@ You can then modify the state and the provider automatically re-renders the DOM.
 
 [▶️ Run in CodeSandbox.io](https://codesandbox.io/s/blissful-montalcini-4kqlc)
 
+### TODO app example
+
+You can check out a full TODO app example:
+
+[▶️ Run in CodeSandbox.io](https://codesandbox.io/s/competent-swartz-beoub?file=/src/TodoComponent.ts)
+
 ## Getting started (ES Modules)
 
 `longwood-usestate` is available as ES module, so quickest way to get started is
