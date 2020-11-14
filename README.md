@@ -14,7 +14,6 @@ const render = provider(
       div(
         text(`Count: ${state}`),
         button({
-          id: 'button',
           onclick: () => setState(state + 1),
           children: [text('+1')]
         })
@@ -42,14 +41,13 @@ to import the module directly within your HTML page:
       import { div } from 'https://cdn.skypack.dev/longwood'
       import { useState } from 'https://cdn.skypack.dev/longwood-usestate'
 
-      const { provider, consumer, setState } = createContext(0)
+      const { provider, consumer } = createContext(0)
       const render = provider(
         div(
-          consumer((state) =>
+          consumer((state, setState) =>
             div(
               text(`Count: ${state}`),
               button({
-                id: 'button',
                 onclick: () => setState(state + 1),
                 children: [text('+1')]
               })
@@ -84,10 +82,10 @@ Webpack, you can do:
 import { div } from 'longwood'
 import { useState } from 'longwood-usestate'
 
-const { provider, consumer, setState } = createContext(0)
+const { provider, consumer } = createContext(0)
 const render = provider(
   div(
-    consumer((state) =>
+    consumer((state, setState) =>
       div(
         text(`Count: ${state}`),
         button({
