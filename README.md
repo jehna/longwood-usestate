@@ -7,10 +7,10 @@
 You can use `createContext` function to craete a context object with state:
 
 ```js
-const { provider, consumer, setState } = createContext(0)
+const { provider, consumer } = createContext(0)
 const render = provider(
   div(
-    consumer((state) =>
+    consumer((state, setState) =>
       div(
         text(`Count: ${state}`),
         button({
