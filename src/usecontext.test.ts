@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom'
 const createRenderTarget = () =>
   new JSDOM('<div id="app" />').window.document.getElementById('app')!
 
-describe('useState', () => {
+describe('useContext', () => {
   it('should expose the initial state value', () => {
     const target = createRenderTarget()
     const { provider, consumer } = createContext('foobar')
