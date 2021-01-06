@@ -1,6 +1,6 @@
 {
   "name": "longwood-usestate",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "main": "build/index.js",
   "license": "MIT",
   "homepage": "https://github.com/jehna/longwood-usestate",
